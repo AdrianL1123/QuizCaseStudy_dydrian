@@ -3,11 +3,60 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment">
 
+
+    <action
+        android:id="@+id/action_loginFragment_to_studentFragment"
+        app:destination="@id/studentFragment"
+        app:popUpTo="@id/loginFragment"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_loginFragment_to_teacherFragment"
+        app:destination="@id/teacherFragment"
+        app:popUpTo="@id/loginFragment"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/actionToLoginFragment"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/loginFragment"
+        app:popUpToInclusive="true" />
+
+
+    <!-- Auth -->
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.dydrian.quizCaseStudy.ui.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/loginFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.auth.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_base_auth">
+        <action
+            android:id="@+id/actionLoginFragmentToSignUpFragment"
+            app:destination="@id/signupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.auth.signup.SignupFragment"
+        android:label="SignupFragment"
+        tools:layout="@layout/fragment_base_auth" />
+    <!-- Auth -->
+
+
+    <!-- Student Page -->
+    <fragment
+        android:id="@+id/studentFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.student.StudentFragment"
+        android:label="fragment_student"
+        tools:layout="@layout/fragment_student" />
+
+
+    <!--  Teacher Page  -->
+    <fragment
+        android:id="@+id/teacherFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.teacher.TeacherFragment"
+        android:label="fragment_teacher"
+        tools:layout="@layout/fragment_teacher" />
+
+
 </navigation>
