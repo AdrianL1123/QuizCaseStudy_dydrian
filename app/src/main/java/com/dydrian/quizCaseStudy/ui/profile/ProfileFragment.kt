@@ -16,6 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.dydrian.quizCaseStudy.R
+import com.dydrian.quizCaseStudy.core.showToast
 import com.dydrian.quizCaseStudy.databinding.FragmentProfileBinding
 import com.dydrian.quizCaseStudy.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,6 +67,7 @@ class ProfileFragment : BaseFragment() {
             viewModel.logout()
             findNavController().navigate(ProfileFragmentDirections.actionToLoginFragment())
             dialog.dismiss()
+            showToast(requireContext(), "Successfully Logged out !")
         }
         dialog.show()
     }
