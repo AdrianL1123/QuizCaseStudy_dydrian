@@ -9,8 +9,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val authService: AuthService
-) :
-    BaseViewModel() {
+) : BaseViewModel() {
+
     suspend fun getUserRole(): String? {
         return authService.getUserRole()
     }

@@ -48,7 +48,7 @@
         android:id="@+id/studentFragment"
         android:name="com.dydrian.quizCaseStudy.ui.student.StudentFragment"
         android:label="fragment_student"
-        tools:layout="@layout/fragment_student" >
+        tools:layout="@layout/fragment_student">
         <action
             android:id="@+id/action_studentFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -60,16 +60,25 @@
         android:id="@+id/teacherFragment"
         android:name="com.dydrian.quizCaseStudy.ui.teacher.TeacherFragment"
         android:label="fragment_teacher"
-        tools:layout="@layout/fragment_teacher" >
+        tools:layout="@layout/fragment_teacher">
         <action
             android:id="@+id/action_teacherFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_teacherFragment_to_teacherAddQuizFragment"
+            app:destination="@id/teacherAddQuizFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.dydrian.quizCaseStudy.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        tools:layout="@layout/fragment_teacher_manage_quiz"
+        android:id="@+id/teacherAddQuizFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.teacher.manage.add.TeacherAddQuizFragment"
+        android:label="TeacherAddQuizFragment" />
 
 
 </navigation>
