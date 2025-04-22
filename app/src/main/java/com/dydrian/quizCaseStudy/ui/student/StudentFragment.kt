@@ -29,7 +29,7 @@ class StudentFragment : BaseFragment() {
         binding.ivUserProfile.setOnClickListener {
             findNavController().navigate(
                 StudentFragmentDirections
-                    .actionStudentFragmentToProfileFragment()
+                    .studentFragmentToProfileFragment()
             )
         }
     }

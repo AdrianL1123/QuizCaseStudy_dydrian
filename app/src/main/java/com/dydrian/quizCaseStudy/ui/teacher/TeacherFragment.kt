@@ -28,8 +28,7 @@ class TeacherFragment : BaseFragment() {
 
         binding.ivUserProfile.setOnClickListener {
             findNavController().navigate(
-                TeacherFragmentDirections
-                    .actionTeacherFragmentToProfileFragment()
+                TeacherFragmentDirections.teacherFragmentToProfileFragment()
             )
         }
     }

@@ -18,7 +18,7 @@ class LoginFragment : BaseAuthFragment() {
     override fun setupUiComponents(view: View) {
         super.setupUiComponents(view)
         binding.btnGoToSignupOrLogin.setOnClickListener {
-            val action = LoginFragmentDirections.actionLoginFragmentToSignUpFragment()
+            val action = LoginFragmentDirections.LoginFragmentToSignUpFragment()
             findNavController().navigate(action)
         }
 
@@ -44,13 +44,13 @@ class LoginFragment : BaseAuthFragment() {
                     when (role) {
                         "Teacher" -> {
                             val action =
-                                SignupFragmentDirections.actionLoginFragmentToTeacherFragment()
+                                SignupFragmentDirections.loginFragmentToTeacherFragment()
                             findNavController().navigate(action)
                         }
 
                         "Student" -> {
                             val action =
-                                SignupFragmentDirections.actionLoginFragmentToStudentFragment()
+                                SignupFragmentDirections.loginFragmentToStudentFragment()
                             findNavController().navigate(action)
                         }
 

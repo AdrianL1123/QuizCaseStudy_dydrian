@@ -65,7 +65,7 @@ class ProfileFragment : BaseFragment() {
 
         btnLogout.setOnClickListener {
             viewModel.logout()
-            findNavController().navigate(ProfileFragmentDirections.actionToLoginFragment())
+            findNavController().navigate(ProfileFragmentDirections.ToLoginFragment())
             dialog.dismiss()
             showToast(requireContext(), "Successfully Logged out !")
         }
