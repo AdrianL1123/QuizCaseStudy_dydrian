@@ -53,13 +53,13 @@ class SignupFragment : BaseAuthFragment() {
                     when (role) {
                         "Teacher" -> {
                             val action =
-                                SignupFragmentDirections.actionLoginFragmentToTeacherFragment()
+                                SignupFragmentDirections.loginFragmentToTeacherFragment()
                             findNavController().navigate(action)
                         }
 
                         "Student" -> {
                             val action =
-                                SignupFragmentDirections.actionLoginFragmentToStudentFragment()
+                                SignupFragmentDirections.loginFragmentToStudentFragment()
                             findNavController().navigate(action)
                         }
 

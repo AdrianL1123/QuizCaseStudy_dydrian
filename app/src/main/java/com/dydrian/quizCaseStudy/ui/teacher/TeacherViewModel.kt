@@ -9,8 +9,4 @@ import javax.inject.Inject
 class TeacherViewModel @Inject constructor(
     private val authService: AuthService
 ) : BaseViewModel() {
-
-    fun logout() {
-        return authService.logout()
-    }
 }

@@ -25,10 +25,11 @@ class TeacherFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnLogout.setOnClickListener {
-            viewModel.logout()
-            findNavController()
-                .navigate(TeacherFragmentDirections.actionToLoginFragment())
+
+        binding.ivUserProfile.setOnClickListener {
+            findNavController().navigate(
+                TeacherFragmentDirections.teacherFragmentToProfileFragment()
+            )
         }
     }
 
