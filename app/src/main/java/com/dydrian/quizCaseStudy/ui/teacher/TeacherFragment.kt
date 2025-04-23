@@ -35,7 +35,7 @@ class TeacherFragment : BaseFragment() {
         setupAdapter()
         lifecycleScope.launch {
             viewModel.quizzes.collect {
-                binding.tvEmpty.visibility =
+                binding.emptyStateContainer.visibility =
                     if (it.isEmpty()) View.VISIBLE else View.GONE
 
                 adapter.setQuizzes(it)

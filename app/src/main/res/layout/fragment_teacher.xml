@@ -7,6 +7,33 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.student.StudentFragment">
 
+    <!-- Empty State -->
+    <LinearLayout
+        android:id="@+id/emptyStateContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/tvEmptyIcon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/bookmark_x" />
+
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="@dimen/xxs"
+            android:text="No quiz yet"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,8 +42,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:background="@color/lightGray"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="16dp">
 
@@ -45,33 +72,6 @@
             android:layout_height="0dp"
             android:layout_margin="@dimen/xxxxs"
             android:layout_weight="1" />
-
-        <!-- Empty State -->
-        <LinearLayout
-            android:id="@+id/emptyStateContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/tvEmptyIcon"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/bookmark_x" />
-
-            <TextView
-                android:id="@+id/tvEmpty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="@dimen/xxs"
-                android:text="No quiz yet"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-        </LinearLayout>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
