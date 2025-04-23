@@ -82,6 +82,9 @@ class TeacherAddQuizFragment : TeacherManageQuizFragment() {
         }
     }
 
+    /**
+     * get actual file name with uri
+     */
     private fun getFileName(uri: Uri): String? {
         val cursor = requireContext().contentResolver.query(
             uri,
