@@ -64,12 +64,21 @@
         <action
             android:id="@+id/teacherFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_teacherFragment_to_teacherAddQuizFragment"
+            app:destination="@id/teacherAddQuizFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.dydrian.quizCaseStudy.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        tools:layout="@layout/fragment_teacher_manage_quiz"
+        android:id="@+id/teacherAddQuizFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.teacher.manage.add.TeacherAddQuizFragment"
+        android:label="TeacherAddQuizFragment" />
 
 
 </navigation>
