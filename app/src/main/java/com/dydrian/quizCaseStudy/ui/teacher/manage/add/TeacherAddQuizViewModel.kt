@@ -2,7 +2,6 @@ package com.dydrian.quizCaseStudy.ui.teacher.manage.add
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dydrian.quizCaseStudy.data.model.Question
@@ -25,7 +24,6 @@ class TeacherAddQuizViewModel @Inject constructor(
 
     /**
      * Parses the CSV file from the given URI and updates the parsed questions list.
-     * This function runs in the IO thread to handle file reading asynchronously.
      *
      * @param context The application context to access content resolver for opening the input stream.
      * @param uri The URI of the CSV file to be parsed.
@@ -33,11 +31,13 @@ class TeacherAddQuizViewModel @Inject constructor(
     fun parseCsv(context: Context, uri: Uri, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
             try {
+                // load files from internal memory android
                 val inputStream = context.contentResolver.openInputStream(uri)
+                // read lines from csv (bufferedReader)
                 val reader = BufferedReader(InputStreamReader(inputStream))
+                // format questions to list
                 val questions = parseCsvToQuestions(reader)
                 _parsedQuestions.value = questions
-                Log.d("debugging", questions.toString())
                 onSuccess()
             } catch (e: Exception) {
                 onError(e.message ?: "Failed to parse CSV")

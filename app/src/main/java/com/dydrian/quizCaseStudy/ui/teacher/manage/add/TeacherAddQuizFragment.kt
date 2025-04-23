@@ -22,7 +22,9 @@ class TeacherAddQuizFragment : TeacherManageQuizFragment() {
     private val viewModel: TeacherAddQuizViewModel by viewModels()
 
     /**
-     *   Storage Access Framework (SAF)
+     * Launches the Storage Access Framework (SAF) file picker to select a CSV file.
+     *
+     * Uses ActivityResultContracts.GetContent() to allow the user to choose a file.
      */
     private val csvPickerLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
@@ -86,6 +88,8 @@ class TeacherAddQuizFragment : TeacherManageQuizFragment() {
      * get actual file name with uri
      */
     private fun getFileName(uri: Uri): String? {
+        // This queries the content provider associated with the uri and returns a Cursor.
+        // A Cursor is like a pointer to a table of results.
         val cursor = requireContext().contentResolver.query(
             uri,
             null,
@@ -94,7 +98,10 @@ class TeacherAddQuizFragment : TeacherManageQuizFragment() {
             null
         )
         cursor?.use {
+            // This gets the index of the “DISPLAY_NAME” column,
+            // which stores the file name (like "questions.csv").
             val nameIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            // if return -1 prevent crash here
             if (nameIndex != -1 && it.moveToFirst()) {
                 return it.getString(nameIndex)
             }
