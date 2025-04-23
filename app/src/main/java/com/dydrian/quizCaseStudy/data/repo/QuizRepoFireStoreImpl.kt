@@ -43,4 +43,9 @@ class QuizRepoFireStoreImpl(
         val docRef = getCollectionRef().document()
         docRef.set(quiz.copy(id = docRef.id)).await()
     }
+
+    override suspend fun getQuizById(id: String): Quiz? {
+        val snapshot = getCollectionRef().document(id).get().await()
+        return snapshot.toObject(Quiz::class.java)?.copy(id = snapshot.id)
+    }
 }
