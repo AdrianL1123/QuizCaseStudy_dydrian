@@ -70,6 +70,9 @@
         <action
             android:id="@+id/action_teacherFragment_to_teacherAddQuizFragment"
             app:destination="@id/teacherAddQuizFragment" />
+        <action
+            android:id="@+id/action_teacherFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
 
     </fragment>
     <fragment
@@ -82,6 +85,15 @@
         android:name="com.dydrian.quizCaseStudy.ui.teacher.manage.add.TeacherAddQuizFragment"
         android:label="TeacherAddQuizFragment"
         tools:layout="@layout/fragment_teacher_manage_quiz" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.teacher.details.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/quizConfirmationFragment"
         android:name="com.dydrian.quizCaseStudy.ui.student.quizConfirmation.QuizConfirmationFragment"
