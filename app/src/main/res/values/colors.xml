@@ -6,6 +6,7 @@
     <color name="success">#2F863E</color>
     <color name="lightGray">#D1D1D1</color>
     <color name="gray">#7D7D7D</color>
+    <color name="darkGray">#505050</color>
     <color name="lightBlue">#2196F3</color>
     <color name="darkBlue">#3F51B5</color>
 </resources>

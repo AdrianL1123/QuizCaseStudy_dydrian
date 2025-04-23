@@ -15,8 +15,8 @@ import javax.inject.Singleton
 class AppModule {
     @Provides
     @Singleton
-    fun provideQuizRepo(authService: AuthService): QuizRepo {
-        return QuizRepoFireStoreImpl(authService = authService)
+    fun provideQuizRepo(): QuizRepo {
+        return QuizRepoFireStoreImpl()
     }
 
     @Provides
