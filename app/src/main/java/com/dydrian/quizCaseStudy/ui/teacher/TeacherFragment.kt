@@ -54,6 +54,7 @@ class TeacherFragment : BaseFragment() {
                     .actionTeacherFragmentToTeacherAddQuizFragment()
             )
         }
+
     }
 
     private fun setupAdapter() {
@@ -62,5 +63,15 @@ class TeacherFragment : BaseFragment() {
         binding.rvQuizzes.layoutManager = LinearLayoutManager(
             requireContext()
         )
+
+        adapter.listener = object: QuizAdapter.Listener {
+            override fun onClickItem(item: Quiz) {
+                findNavController().navigate(
+                    TeacherFragmentDirections.actionTeacherFragmentToDetailsFragment(
+                        item.id!!
+                    )
+                )
+            }
+        }
     }
 }
