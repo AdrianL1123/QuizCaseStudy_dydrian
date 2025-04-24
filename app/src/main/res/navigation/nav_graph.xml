@@ -75,16 +75,20 @@
             app:destination="@id/detailsFragment" />
 
     </fragment>
+
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.dydrian.quizCaseStudy.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
     <fragment
         android:id="@+id/teacherAddQuizFragment"
         android:name="com.dydrian.quizCaseStudy.ui.teacher.manage.add.TeacherAddQuizFragment"
         android:label="TeacherAddQuizFragment"
         tools:layout="@layout/fragment_teacher_manage_quiz" />
+
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.dydrian.quizCaseStudy.ui.teacher.details.DetailsFragment"
@@ -94,6 +98,7 @@
             android:name="quizId"
             app:argType="string" />
     </fragment>
+
     <fragment
         android:id="@+id/quizConfirmationFragment"
         android:name="com.dydrian.quizCaseStudy.ui.student.quizConfirmation.QuizConfirmationFragment"
@@ -102,7 +107,17 @@
         <argument
             android:name="quizId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_quizConfirmationFragment_to_takeQuizFragment"
+            app:destination="@id/takeQuizFragment" />
     </fragment>
 
-
+    <fragment
+        android:id="@+id/takeQuizFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.student.takeQuiz.TakeQuizFragment"
+        android:label="TakeQuizFragment">
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+    </fragment>
 </navigation>

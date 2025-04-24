@@ -1,4 +1,4 @@
-               package com.dydrian.quizCaseStudy.ui.teacher.details
+package com.dydrian.quizCaseStudy.ui.teacher.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -37,6 +37,7 @@ class DetailsFragment : BaseFragment() {
         lifecycleScope.launch {
             viewModel.quiz.collect { quiz ->
                 quiz?.let {
+                    binding.tvQuizId.text = quiz.id
                     binding.tvTitle.text = quiz.title.uppercase()
                     binding.tvTimePerQuestion.text =
                         "Timer per question: ${quiz.timePerQuestion} seconds"
