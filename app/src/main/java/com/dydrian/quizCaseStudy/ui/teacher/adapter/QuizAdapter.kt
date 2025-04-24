@@ -40,7 +40,7 @@ class QuizAdapter(
         fun bind(quiz: Quiz) {
             binding.tvTitle.text = quiz.title.uppercase()
             binding.tvTimePerQuestion.text =
-                "Timer per question: ${quiz.timePerQuestion.toString()} seconds"
+                "Timer per question: ${quiz.timePerQuestion} seconds"
             binding.tvNumberOfQuestions.text = "Number of questions: ${quiz.questions.size}"
             binding.mcvQuiz.setOnClickListener {
                 listener?.onClickItem(quiz)

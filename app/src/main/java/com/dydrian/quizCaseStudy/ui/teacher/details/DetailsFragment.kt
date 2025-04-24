@@ -1,15 +1,12 @@
-package com.dydrian.quizCaseStudy.ui.details
+               package com.dydrian.quizCaseStudy.ui.teacher.details
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import com.dydrian.quizCaseStudy.R
 import com.dydrian.quizCaseStudy.data.model.Question
 import com.dydrian.quizCaseStudy.databinding.FragmentDetailsBinding
 import com.dydrian.quizCaseStudy.ui.base.BaseFragment
@@ -26,7 +23,7 @@ class DetailsFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,17 +32,16 @@ class DetailsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val quizId = args.quizId
-        viewModel.getQuizById(quizId)
+        viewModel.getQuizById(requireContext(), quizId)
 
         lifecycleScope.launch {
             viewModel.quiz.collect { quiz ->
                 quiz?.let {
-                    binding.tvTitle.text = quiz.title
+                    binding.tvTitle.text = quiz.title.uppercase()
                     binding.tvTimePerQuestion.text =
-                        "Timer per question: ${quiz.timePerQuestion.toString()} seconds"
+                        "Timer per question: ${quiz.timePerQuestion} seconds"
                     binding.tvTotalQuestions.text = "Number of questions: ${quiz.questions?.size}"
                     binding.tvQuestionsList.text = formatQuestions(quiz.questions)
-                    Log.d("debugging", "Questions: ${quiz.questions}")
                 }
             }
         }

@@ -54,7 +54,6 @@ class TeacherFragment : BaseFragment() {
                     .actionTeacherFragmentToTeacherAddQuizFragment()
             )
         }
-
     }
 
     private fun setupAdapter() {
@@ -64,7 +63,7 @@ class TeacherFragment : BaseFragment() {
             requireContext()
         )
 
-        adapter.listener = object: QuizAdapter.Listener {
+        adapter.listener = object : QuizAdapter.Listener {
             override fun onClickItem(item: Quiz) {
                 findNavController().navigate(
                     TeacherFragmentDirections.actionTeacherFragmentToDetailsFragment(

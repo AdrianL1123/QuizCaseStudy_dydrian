@@ -1,7 +1,5 @@
 package com.dydrian.quizCaseStudy.data.repo
 
-import com.dydrian.quizCaseStudy.core.CustomException
-import com.dydrian.quizCaseStudy.core.service.AuthService
 import com.dydrian.quizCaseStudy.data.model.Quiz
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.CollectionReference
@@ -14,12 +12,9 @@ import kotlinx.coroutines.tasks.await
 
 class QuizRepoFireStoreImpl(
     private val db: FirebaseFirestore = Firebase.firestore,
-    private val authService: AuthService
 ) : QuizRepo {
     private fun getCollectionRef(): CollectionReference {
-        val uid = authService.getUid()
-            ?: throw CustomException("User Not Found")
-        return db.collection("users/$uid/quiz")
+        return db.collection("quiz")
     }
 
     override fun getQuizzes(): Flow<List<Quiz>> = callbackFlow {
@@ -40,8 +35,8 @@ class QuizRepoFireStoreImpl(
     }
 
     override suspend fun addQuiz(quiz: Quiz) {
-        val docRef = getCollectionRef().document()
-        docRef.set(quiz.copy(id = docRef.id)).await()
+        val docRef = getCollectionRef().document(quiz.id!!)
+        docRef.set(quiz).await()
     }
 
     override suspend fun getQuizById(id: String): Quiz? {
