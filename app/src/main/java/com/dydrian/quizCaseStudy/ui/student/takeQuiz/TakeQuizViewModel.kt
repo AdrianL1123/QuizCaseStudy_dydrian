@@ -9,6 +9,8 @@ import com.dydrian.quizCaseStudy.data.model.Quiz
 import com.dydrian.quizCaseStudy.data.repo.QuizRepo
 import com.dydrian.quizCaseStudy.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -31,6 +33,11 @@ class TakeQuizViewModel @Inject constructor(
     val currentQuestionIndex = MutableStateFlow(0)
     val currentQuestion = MutableStateFlow<Question?>(null)
 
+    private val _timeLeft = MutableStateFlow(0)
+    val timeLeft = _timeLeft.asStateFlow()
+
+    private var timerJob: Job? = null
+
 
     init {
         getQuizById()
@@ -46,8 +53,31 @@ class TakeQuizViewModel @Inject constructor(
                 _quiz.update { items }
                 currentQuestionIndex.update { 0 }
                 currentQuestion.update { items.questions.firstOrNull() }
+                timer()
             }
         }
+    }
+
+    fun timer() {
+        timerJob?.cancel() // cancel previous timer if any
+
+        timerJob = viewModelScope.launch {
+            val timePerQuestion = quiz.value?.timePerQuestion
+            if (timePerQuestion != null) {
+                _timeLeft.value = timePerQuestion
+            }
+            while (_timeLeft.value > 0) {
+                delay(1000) // 1 sec
+                _timeLeft.update { it - 1 }
+            }
+            // When time is up
+            onTimeUp()
+        }
+    }
+
+    // automatically move to next question
+    private fun onTimeUp() {
+        nextQuestion()
     }
 
     fun nextQuestion() {
@@ -56,14 +86,13 @@ class TakeQuizViewModel @Inject constructor(
         if (nextQuestionIndex < quiz.questions.size) {
             currentQuestionIndex.value = nextQuestionIndex
             currentQuestion.value = quiz.questions[nextQuestionIndex]
+            timer()
         } else {
+            timerJob?.cancel() // stop timer
             // Todo get to results page
         }
     }
 
-    fun timer() {
-        TODO()
-    }
 
     fun checkAnswer(context: Context, selectedAnswer: String) {
         if (selectedAnswer.trim() == currentQuestion.value?.correctAnswer?.trim()) {

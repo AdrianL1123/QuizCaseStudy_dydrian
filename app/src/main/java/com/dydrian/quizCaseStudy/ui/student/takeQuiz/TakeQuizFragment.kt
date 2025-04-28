@@ -41,6 +41,12 @@ class TakeQuizFragment : BaseFragment() {
                             "${index + 1}/${it?.questions?.size}"
                     }
                 }
+
+                lifecycleScope.launch {
+                    viewModel.timeLeft.collect { timeLeft ->
+                        binding.tvTimer.text = "00:$timeLeft"
+                    }
+                }
             }
         }
 
@@ -56,6 +62,7 @@ class TakeQuizFragment : BaseFragment() {
                 }
             }
         }
+
 
         // get answer from user
         binding.radioGroup
