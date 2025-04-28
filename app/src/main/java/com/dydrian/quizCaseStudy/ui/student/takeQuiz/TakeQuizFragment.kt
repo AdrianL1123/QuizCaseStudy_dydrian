@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.dydrian.quizCaseStudy.core.showToast
 import com.dydrian.quizCaseStudy.databinding.FragmentTakeQuizBinding
 import com.dydrian.quizCaseStudy.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -18,6 +21,8 @@ class TakeQuizFragment : BaseFragment() {
     private lateinit var binding: FragmentTakeQuizBinding
     override val viewModel: TakeQuizViewModel by viewModels()
     private var selectedAnswer: String? = null
+    private val args: TakeQuizFragmentArgs by navArgs()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,19 +39,27 @@ class TakeQuizFragment : BaseFragment() {
             // get quiz
             viewModel.quiz.collect {
                 binding.tvQuizTitle.text = it?.title
-                lifecycleScope.launch {
-                    // quiz question number
-                    viewModel.currentQuestionIndex.collect { index ->
-                        binding.tvNumberOfQuestions.text =
-                            "${index + 1}/${it?.questions?.size}"
-                    }
-                }
+            }
+        }
 
-                lifecycleScope.launch {
-                    viewModel.timeLeft.collect { timeLeft ->
-                        binding.tvTimer.text = "00:$timeLeft"
+        // quiz question number
+        lifecycleScope.launch {
+            viewModel.currentQuestionIndex
+                // collect question index and quiz use Combine
+                .combine(viewModel.quiz) { index, quiz ->
+                    Pair(index, quiz)
+                }
+                .collect { (index, quiz) ->
+                    if (quiz != null && quiz.questions.isNotEmpty()) {
+                        binding.tvNumberOfQuestions.text = "${index + 1}/${quiz.questions.size}"
                     }
                 }
+        }
+
+        // timer
+        lifecycleScope.launch {
+            viewModel.timeLeft.collect { timeLeft ->
+                binding.tvTimer.text = "00:$timeLeft"
             }
         }
 
@@ -59,6 +72,21 @@ class TakeQuizFragment : BaseFragment() {
                     binding.rbAnswer2.text = question.options[1]
                     binding.rbAnswer3.text = question.options[2]
                     binding.rbAnswer4.text = question.options[3]
+                }
+            }
+        }
+
+        // results page
+        lifecycleScope.launch {
+            viewModel.navigateToResult.collect { score ->
+                if (score != "") {
+                    findNavController().navigate(
+                        TakeQuizFragmentDirections
+                            .takeQuizFragmentToResultFragment(
+                                score, args.quizId
+                            )
+                    )
+                    viewModel.storeScore()
                 }
             }
         }

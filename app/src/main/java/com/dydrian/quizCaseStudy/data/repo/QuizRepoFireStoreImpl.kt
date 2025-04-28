@@ -1,6 +1,8 @@
 package com.dydrian.quizCaseStudy.data.repo
 
+import com.dydrian.quizCaseStudy.core.service.AuthService
 import com.dydrian.quizCaseStudy.data.model.Quiz
+import com.dydrian.quizCaseStudy.data.model.Score
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,6 +14,7 @@ import kotlinx.coroutines.tasks.await
 
 class QuizRepoFireStoreImpl(
     private val db: FirebaseFirestore = Firebase.firestore,
+    private val authService: AuthService
 ) : QuizRepo {
     private fun getCollectionRef(): CollectionReference {
         return db.collection("quiz")
@@ -42,5 +45,42 @@ class QuizRepoFireStoreImpl(
     override suspend fun getQuizById(id: String): Quiz? {
         val snapshot = getCollectionRef().document(id).get().await()
         return snapshot.toObject(Quiz::class.java)?.copy(id = snapshot.id)
+    }
+
+    // Store the score for a student in a particular quiz
+    override suspend fun storeScore(quizId: String, score: String) {
+        val user = authService.getLoggedInUser()
+        val scoreData = mapOf(
+            "score" to score,
+            "user_email" to user?.email
+        )
+
+        // Store the score inside the quiz
+        if (user != null) {
+            getCollectionRef().document(quizId)
+                .collection("scores")
+                .document(user.uid)
+                .set(scoreData)
+                .await()
+        }
+    }
+
+    override suspend fun getScoresForQuiz(quizId: String): Flow<List<Score>> = callbackFlow {
+        val listener = getCollectionRef().document(quizId)
+            .collection("scores")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    trySend(emptyList())
+                    return@addSnapshotListener
+                }
+                val scores = mutableListOf<Score>()
+                value?.documents?.forEach { doc ->
+                    doc.toObject(Score::class.java)?.let { score ->
+                        scores.add(score)
+                    }
+                }
+                trySend(scores)
+            }
+        awaitClose { listener.remove() }
     }
 }

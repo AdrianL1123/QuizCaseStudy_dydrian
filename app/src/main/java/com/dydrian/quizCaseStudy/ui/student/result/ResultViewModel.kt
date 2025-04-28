@@ -1,10 +1,12 @@
-package com.dydrian.quizCaseStudy.ui.teacher
+package com.dydrian.quizCaseStudy.ui.student.result
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.dydrian.quizCaseStudy.core.service.AuthService
-import com.dydrian.quizCaseStudy.data.model.Quiz
+import com.dydrian.quizCaseStudy.data.model.Score
 import com.dydrian.quizCaseStudy.data.repo.QuizRepo
 import com.dydrian.quizCaseStudy.ui.base.BaseViewModel
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,27 +16,33 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TeacherViewModel @Inject constructor(
+class ResultViewModel @Inject constructor(
+    private val repo: QuizRepo,
     private val authService: AuthService,
-    private val repo: QuizRepo
+    args: SavedStateHandle
 ) : BaseViewModel() {
+    val quizId = args.get<String>("quizId") ?: "-1"
 
-    val _quizzes = MutableStateFlow<List<Quiz>>(emptyList())
-    val quizzes = _quizzes.asStateFlow()
+    val _quizScores = MutableStateFlow<List<Score>>(emptyList())
+    val quizScores = _quizScores.asStateFlow()
 
     init {
-        getQuizzes()
+        getQuizScores()
     }
 
-    private fun getQuizzes() {
+    private fun getQuizScores() {
         viewModelScope.launch(Dispatchers.IO) {
             errorHandler {
-                repo.getQuizzes().collect { items ->
-                    _quizzes.update {
+                repo.getScoresForQuiz(quizId).collect { items ->
+                    _quizScores.update {
                         items
                     }
                 }
             }
         }
+    }
+
+    fun getLoggedInUser(): FirebaseUser? {
+        return authService.getLoggedInUser()
     }
 }
