@@ -84,9 +84,20 @@
         android:label="TeacherAddQuizFragment" />
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.dydrian.quizCaseStudy.ui.details.DetailsFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.teacher.details.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details">
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_detailsFragment_to_teacherEditQuizFragment"
+            app:destination="@id/teacherEditQuizFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teacherEditQuizFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.teacher.manage.edit.TeacherEditQuizFragment"
+        android:label="TeacherEditQuizFragment">
         <argument
             android:name="quizId"
             app:argType="string" />

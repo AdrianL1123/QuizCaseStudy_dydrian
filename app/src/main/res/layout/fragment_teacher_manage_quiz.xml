@@ -20,6 +20,7 @@
             android:padding="16dp">
 
             <TextView
+                android:id="@+id/tvManageTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -86,34 +87,45 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp" />
 
-            <!-- Label: CSV Upload -->
-            <TextView
+
+            <LinearLayout
+                android:id="@+id/llCsvUpload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:paddingBottom="4dp"
-                android:text="Upload Questions CSV"
-                android:textStyle="bold" />
+                android:orientation="vertical">
+
+                <!-- Label: CSV Upload -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:paddingBottom="4dp"
+                    android:text="Upload Questions CSV"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnUploadCsv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/lightGray"
+                    android:text="Choose File"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvCsvFileName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="4dp"
+                    android:text="No file selected"
+                    android:textStyle="italic" />
+
+
+            </LinearLayout>
+
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnUploadCsv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/lightGray"
-                android:text="Choose File"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/tvCsvFileName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="4dp"
-                android:text="No file selected"
-                android:textStyle="italic" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCreate"
+                android:id="@+id/btnManageCreateEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="50dp"

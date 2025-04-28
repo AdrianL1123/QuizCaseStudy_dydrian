@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".ui.details.DetailsFragment">
+    tools:context=".ui.teacher.details.DetailsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,9 +33,34 @@
             android:id="@+id/tvTotalQuestions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="25dp"
             android:text="Total Questions:"
             android:textSize="18sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEdit"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="16dp"
+                android:text="Edit"
+                app:cornerRadius="6dp"
+                android:backgroundTint="@color/lightGray"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDelete"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Delete"
+                app:cornerRadius="6dp"
+                android:backgroundTint="@color/error"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

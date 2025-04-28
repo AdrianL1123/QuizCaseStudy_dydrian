@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TeacherAddQuizViewModel @Inject constructor(
     private val repo: QuizRepo
-) : ViewModel() {
+) : ViewModel(){
     private var _parsedQuestions = MutableStateFlow<List<Question>>(emptyList())
     val parsedQuestions = _parsedQuestions.asStateFlow()
 
