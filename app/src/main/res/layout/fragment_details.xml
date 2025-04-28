@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="8dp"
     tools:context=".ui.teacher.details.DetailsFragment">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/xl">
+
+        <TextView
+            android:id="@+id/tvQuizId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:text="QuizId"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Title"
-            android:textSize="26sp"/>
+            android:textSize="26sp" />
 
         <TextView
             android:id="@+id/tvTimePerQuestion"
@@ -27,15 +38,15 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:text="Time per Question:"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tvTotalQuestions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="50dp"
             android:text="Total Questions:"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -38,6 +38,7 @@ class QuizAdapter(
         private var binding: ItemQuizLayoutBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(quiz: Quiz) {
+            binding.tvQuizId.text = "Quiz ID: ${quiz.id}"
             binding.tvTitle.text = quiz.title.uppercase()
             binding.tvTimePerQuestion.text =
                 "Timer per question: ${quiz.timePerQuestion} seconds"

@@ -14,8 +14,11 @@ import com.dydrian.quizCaseStudy.core.showToast
 import com.dydrian.quizCaseStudy.data.model.Quiz
 import com.dydrian.quizCaseStudy.databinding.FragmentTeacherManageQuizBinding
 import com.dydrian.quizCaseStudy.ui.teacher.manage.TeacherManageQuizFragment
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 @AndroidEntryPoint
 class TeacherAddQuizFragment : TeacherManageQuizFragment() {
@@ -70,13 +73,13 @@ class TeacherAddQuizFragment : TeacherManageQuizFragment() {
             val time = binding.etTimePerQuestion.text.toString().toIntOrNull()
             val questions = viewModel.parsedQuestions.value
 
-            val quiz = Quiz(
-                title = title,
-                timePerQuestion = time,
-                questions = questions
-            )
-
             lifecycleScope.launch {
+                val quiz = Quiz(
+                    id = generateUniqueQuizId(),
+                    title = title,
+                    timePerQuestion = time,
+                    questions = questions
+                )
                 viewModel.addQuiz(quiz)
                 findNavController().popBackStack()
                 showToast(requireContext(), "Quiz Added")
@@ -107,5 +110,18 @@ class TeacherAddQuizFragment : TeacherManageQuizFragment() {
             }
         }
         return null
+    }
+
+    /**
+     * generate unique quiz id
+     */
+    private suspend fun generateUniqueQuizId(): String {
+        val characters = ('A'..'Z') + ('0'..'9')
+        val collection = Firebase.firestore.collection("quiz")
+        while (true) {
+            val id = (1..6).map { characters.random() }.joinToString("")
+            val exists = collection.document(id).get().await().exists()
+            if (!exists) return id
+        }
     }
 }

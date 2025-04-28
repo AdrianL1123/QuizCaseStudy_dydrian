@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,6 @@ import com.dydrian.quizCaseStudy.databinding.FragmentDetailsBinding
 import com.dydrian.quizCaseStudy.ui.base.BaseFragment
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -33,7 +31,7 @@ class DetailsFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -47,11 +45,13 @@ class DetailsFragment : BaseFragment() {
         lifecycleScope.launch {
             viewModel.quiz.collect { quiz ->
                 quiz?.let {
-                    binding.tvTitle.text = quiz.title
+                    binding.tvQuizId.text = quiz.id
+                    binding.tvTitle.text = quiz.title.uppercase()
                     binding.tvTimePerQuestion.text =
                         "Timer per question: ${quiz.timePerQuestion} seconds"
                     binding.tvTotalQuestions.text = "Number of questions: ${quiz.questions?.size}"
                     binding.tvQuestionsList.text = formatQuestions(quiz.questions)
+                    Log.d("debugging", "Questions: ${quiz.questions}")
                 }
             }
         }
