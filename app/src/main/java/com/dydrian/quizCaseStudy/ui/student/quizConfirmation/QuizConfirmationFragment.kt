@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.dydrian.quizCaseStudy.databinding.FragmentQuizConfirmationBinding
 import com.dydrian.quizCaseStudy.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,6 +17,7 @@ import kotlinx.coroutines.launch
 class QuizConfirmationFragment : BaseFragment() {
     private lateinit var binding: FragmentQuizConfirmationBinding
     override val viewModel: QuizConfirmationViewModel by viewModels()
+    private val args: QuizConfirmationFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,5 +39,12 @@ class QuizConfirmationFragment : BaseFragment() {
                     "Number Of Questions: ${it?.questions?.size}"
             }
         }
+        binding.btnStartQuiz.setOnClickListener {
+            findNavController().navigate(
+                QuizConfirmationFragmentDirections
+                    .actionQuizConfirmationFragmentToTakeQuizFragment(args.quizId)
+            )
+        }
+
     }
 }
