@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,7 +50,6 @@ class DetailsFragment : BaseFragment() {
                         "Timer per question: ${quiz.timePerQuestion} seconds"
                     binding.tvTotalQuestions.text = "Number of questions: ${quiz.questions?.size}"
                     binding.tvQuestionsList.text = formatQuestions(quiz.questions)
-                    Log.d("debugging", "Questions: ${quiz.questions}")
                 }
             }
         }
