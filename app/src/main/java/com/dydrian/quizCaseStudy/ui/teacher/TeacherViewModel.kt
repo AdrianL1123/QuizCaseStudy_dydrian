@@ -16,7 +16,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TeacherViewModel @Inject constructor(
-    private val authService: AuthService,
     private val repo: QuizRepo
 ) : BaseViewModel() {
 

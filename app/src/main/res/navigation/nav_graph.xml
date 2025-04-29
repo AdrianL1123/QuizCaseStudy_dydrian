@@ -87,7 +87,12 @@
         android:id="@+id/teacherAddQuizFragment"
         android:name="com.dydrian.quizCaseStudy.ui.teacher.manage.add.TeacherAddQuizFragment"
         android:label="TeacherAddQuizFragment"
-        tools:layout="@layout/fragment_teacher_manage_quiz" />
+        tools:layout="@layout/fragment_teacher_manage_quiz" >
+        <action
+            android:id="@+id/action_teacherAddQuizFragment_to_displayIdPageFragment"
+            app:destination="@id/displayIdPageFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/detailsFragment"
@@ -130,5 +135,17 @@
         <argument
             android:name="quizId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayIdPageFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.teacher.displayId.DisplayIdPageFragment"
+        android:label="fragment_display_id_page"
+        tools:layout="@layout/fragment_display_id_page" >
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_displayIdPageFragment_to_teacherFragment"
+            app:destination="@id/teacherFragment" />
     </fragment>
 </navigation>
