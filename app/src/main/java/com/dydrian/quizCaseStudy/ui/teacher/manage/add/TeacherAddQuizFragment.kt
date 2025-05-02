@@ -73,6 +73,11 @@ class TeacherAddQuizFragment : TeacherManageQuizFragment() {
             val time = binding.etTimePerQuestion.text.toString().toIntOrNull()
             val questions = viewModel.parsedQuestions.value
 
+            if (title.isEmpty() || questions.isEmpty()) {
+                showToast(requireContext(), "Title and Questions field cannot be empty.")
+                return@setOnClickListener
+            }
+
             lifecycleScope.launch {
                 val quiz = Quiz(
                     id = generateUniqueQuizId(),
@@ -81,7 +86,10 @@ class TeacherAddQuizFragment : TeacherManageQuizFragment() {
                     questions = questions
                 )
                 viewModel.addQuiz(quiz)
-                findNavController().popBackStack()
+                findNavController().navigate(
+                    TeacherAddQuizFragmentDirections
+                        .actionTeacherAddQuizFragmentToDisplayIdPageFragment(quiz.id!!)
+                )
                 showToast(requireContext(), "Quiz Added")
             }
         }

@@ -46,8 +46,13 @@ class DetailsFragment : BaseFragment() {
                 quiz?.let {
                     binding.tvQuizId.text = quiz.id
                     binding.tvTitle.text = quiz.title.uppercase()
-                    binding.tvTimePerQuestion.text =
-                        "Timer per question: ${quiz.timePerQuestion} seconds"
+                    if (it.timePerQuestion == null) {
+                        binding.tvTimePerQuestion.visibility = View.GONE
+                    } else {
+                        binding.tvTimePerQuestion.visibility = View.VISIBLE
+                        binding.tvTimePerQuestion.text =
+                            "Timer per question: ${it.timePerQuestion} seconds"
+                    }
                     binding.tvTotalQuestions.text = "Number of questions: ${quiz.questions?.size}"
                     binding.tvQuestionsList.text = formatQuestions(quiz.questions)
                 }
@@ -76,7 +81,7 @@ class DetailsFragment : BaseFragment() {
         }
     }
 
-    private fun showDialogDeleteQuiz(quizId: String){
+    private fun showDialogDeleteQuiz(quizId: String) {
         val dialogView = layoutInflater.inflate(R.layout.delete_dialog, null)
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
@@ -92,7 +97,7 @@ class DetailsFragment : BaseFragment() {
         dialogView.findViewById<MaterialButton>(R.id.btnDelete).setOnClickListener {
             viewModel.deleteQuiz(quizId)
             dialog.dismiss()
-            showToast(requireContext(),"Quiz deleted successfully")
+            showToast(requireContext(), "Quiz deleted successfully")
             findNavController().popBackStack()
         }
         dialog.show()
