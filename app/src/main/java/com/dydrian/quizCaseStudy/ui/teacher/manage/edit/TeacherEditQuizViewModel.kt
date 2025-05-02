@@ -42,7 +42,6 @@ class EditQuizViewModel @Inject constructor(
             errorHandler{
                 repo.getQuizById(quizId)
             }?.let { item ->
-                Log.d("debugging", item.toString())
                 _quiz.update { item }
             }
         }

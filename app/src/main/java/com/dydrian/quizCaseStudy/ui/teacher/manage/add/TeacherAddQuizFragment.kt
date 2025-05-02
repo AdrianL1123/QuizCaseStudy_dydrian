@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.dydrian.quizCaseStudy.core.showToast
 import com.dydrian.quizCaseStudy.data.model.Quiz
 import com.dydrian.quizCaseStudy.databinding.FragmentTeacherManageQuizBinding
-import com.dydrian.quizCaseStudy.ui.teacher.TeacherFragmentDirections
 import com.dydrian.quizCaseStudy.ui.teacher.manage.TeacherManageQuizFragment
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
@@ -82,6 +81,10 @@ class TeacherAddQuizFragment : TeacherManageQuizFragment() {
                     questions = questions
                 )
                 viewModel.addQuiz(quiz)
+                /*
+                did the clear backstack from nav_graph using popUpTo,
+                this nav function remains the same
+                 */
                 findNavController().navigate(
                     TeacherAddQuizFragmentDirections
                         .actionTeacherAddQuizFragmentToDisplayIdPageFragment(quiz.id!!)

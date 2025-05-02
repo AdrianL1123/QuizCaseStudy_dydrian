@@ -90,7 +90,9 @@
         tools:layout="@layout/fragment_teacher_manage_quiz" >
         <action
             android:id="@+id/action_teacherAddQuizFragment_to_displayIdPageFragment"
-            app:destination="@id/displayIdPageFragment" />
+            app:destination="@id/displayIdPageFragment"
+            app:popUpTo="@id/teacherAddQuizFragment"
+            app:popUpToInclusive="true"/>
 
     </fragment>
 
