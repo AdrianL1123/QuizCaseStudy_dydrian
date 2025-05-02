@@ -30,9 +30,7 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    protected open fun setupUiComponents(view: View) {
-
-    }
+    protected open fun setupUiComponents(view: View) {}
 
     private fun showError(view: View, msg: String) {
         return Snackbar

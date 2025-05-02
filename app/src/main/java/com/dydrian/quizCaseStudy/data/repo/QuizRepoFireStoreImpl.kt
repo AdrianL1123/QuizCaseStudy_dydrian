@@ -43,4 +43,12 @@ class QuizRepoFireStoreImpl(
         val snapshot = getCollectionRef().document(id).get().await()
         return snapshot.toObject(Quiz::class.java)?.copy(id = snapshot.id)
     }
+
+    override suspend fun updateQuiz(quiz: Quiz) {
+        getCollectionRef().document(quiz.id!!).set(quiz).await()
+    }
+
+    override suspend fun deleteQuiz(id: String) {
+        getCollectionRef().document(id).delete().await()
+    }
 }

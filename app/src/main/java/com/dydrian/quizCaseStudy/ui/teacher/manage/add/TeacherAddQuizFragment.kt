@@ -68,7 +68,7 @@ class TeacherAddQuizFragment : TeacherManageQuizFragment() {
         binding.btnUploadCsv.setOnClickListener {
             csvPickerLauncher.launch("*/*")
         }
-        binding.btnCreate.setOnClickListener {
+        binding.btnManageCreateEdit.setOnClickListener {
             val title = binding.etQuizTitle.text.toString()
             val time = binding.etTimePerQuestion.text.toString().toIntOrNull()
             val questions = viewModel.parsedQuestions.value

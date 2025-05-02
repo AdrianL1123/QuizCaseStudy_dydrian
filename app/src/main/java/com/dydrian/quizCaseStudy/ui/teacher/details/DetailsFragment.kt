@@ -1,15 +1,22 @@
 package com.dydrian.quizCaseStudy.ui.teacher.details
 
+import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.dydrian.quizCaseStudy.R
+import com.dydrian.quizCaseStudy.core.showToast
 import com.dydrian.quizCaseStudy.data.model.Question
 import com.dydrian.quizCaseStudy.databinding.FragmentDetailsBinding
 import com.dydrian.quizCaseStudy.ui.base.BaseFragment
+import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -46,6 +53,16 @@ class DetailsFragment : BaseFragment() {
                 }
             }
         }
+
+        binding.btnEdit.setOnClickListener {
+            val action = DetailsFragmentDirections
+                .actionDetailsFragmentToTeacherEditQuizFragment(args.quizId)
+            findNavController().navigate(action)
+        }
+
+        binding.btnDelete.setOnClickListener {
+            showDialogDeleteQuiz(quizId)
+        }
     }
 
     private fun formatQuestions(questions: List<Question>): String {
@@ -59,4 +76,25 @@ class DetailsFragment : BaseFragment() {
         }
     }
 
+    private fun showDialogDeleteQuiz(quizId: String){
+        val dialogView = layoutInflater.inflate(R.layout.delete_dialog, null)
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialogView.findViewById<MaterialButton>(R.id.btnCancel).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialogView.findViewById<MaterialButton>(R.id.btnDelete).setOnClickListener {
+            viewModel.deleteQuiz(quizId)
+            dialog.dismiss()
+            showToast(requireContext(),"Quiz deleted successfully")
+            findNavController().popBackStack()
+        }
+        dialog.show()
+    }
 }

@@ -97,6 +97,17 @@
         <argument
             android:name="quizId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_detailsFragment_to_teacherEditQuizFragment"
+            app:destination="@id/teacherEditQuizFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teacherEditQuizFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.teacher.manage.edit.TeacherEditQuizFragment"
+        android:label="TeacherEditQuizFragment">
+        <argument
+            android:name="quizId"
+            app:argType="string" />
     </fragment>
 
     <fragment
