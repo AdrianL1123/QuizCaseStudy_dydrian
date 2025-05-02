@@ -1,7 +1,6 @@
 package com.dydrian.quizCaseStudy.ui.teacher
 
 import androidx.lifecycle.viewModelScope
-import com.dydrian.quizCaseStudy.core.service.AuthService
 import com.dydrian.quizCaseStudy.data.model.Quiz
 import com.dydrian.quizCaseStudy.data.repo.QuizRepo
 import com.dydrian.quizCaseStudy.ui.base.BaseViewModel
@@ -15,7 +14,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TeacherViewModel @Inject constructor(
-    private val authService: AuthService,
     private val repo: QuizRepo
 ) : BaseViewModel() {
 

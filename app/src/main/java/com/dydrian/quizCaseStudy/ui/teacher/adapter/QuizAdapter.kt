@@ -1,7 +1,7 @@
 package com.dydrian.quizCaseStudy.ui.teacher.adapter
 
-import android.location.GnssAntennaInfo.Listener
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dydrian.quizCaseStudy.data.model.Quiz
@@ -40,8 +40,10 @@ class QuizAdapter(
         fun bind(quiz: Quiz) {
             binding.tvQuizId.text = "Quiz ID: ${quiz.id}"
             binding.tvTitle.text = quiz.title.uppercase()
-            binding.tvTimePerQuestion.text =
-                "Timer per question: ${quiz.timePerQuestion} seconds"
+            if (quiz.timePerQuestion == null) {
+                binding.tvTimePerQuestion.visibility = View.GONE
+            }
+            binding.tvTimePerQuestion.text = "Timer per question: ${quiz.timePerQuestion} seconds"
             binding.tvNumberOfQuestions.text = "Number of questions: ${quiz.questions.size}"
             binding.mcvQuiz.setOnClickListener {
                 listener?.onClickItem(quiz)

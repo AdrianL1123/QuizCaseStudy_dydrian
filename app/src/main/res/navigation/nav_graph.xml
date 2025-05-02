@@ -87,13 +87,31 @@
         android:id="@+id/teacherAddQuizFragment"
         android:name="com.dydrian.quizCaseStudy.ui.teacher.manage.add.TeacherAddQuizFragment"
         android:label="TeacherAddQuizFragment"
-        tools:layout="@layout/fragment_teacher_manage_quiz" />
+        tools:layout="@layout/fragment_teacher_manage_quiz" >
+        <action
+            android:id="@+id/action_teacherAddQuizFragment_to_displayIdPageFragment"
+            app:destination="@id/displayIdPageFragment"
+            app:popUpTo="@id/teacherAddQuizFragment"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.dydrian.quizCaseStudy.ui.teacher.details.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details">
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_detailsFragment_to_teacherEditQuizFragment"
+            app:destination="@id/teacherEditQuizFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teacherEditQuizFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.teacher.manage.edit.TeacherEditQuizFragment"
+        android:label="TeacherEditQuizFragment">
         <argument
             android:name="quizId"
             app:argType="string" />
@@ -138,5 +156,17 @@
         <action
             android:id="@+id/action_resultFragment_to_studentFragment"
             app:destination="@id/studentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayIdPageFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.teacher.displayId.DisplayIdPageFragment"
+        android:label="fragment_display_id_page"
+        tools:layout="@layout/fragment_display_id_page" >
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_displayIdPageFragment_to_teacherFragment"
+            app:destination="@id/teacherFragment" />
     </fragment>
 </navigation>

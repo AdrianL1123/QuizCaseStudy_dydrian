@@ -25,8 +25,16 @@ class DetailsViewModel @Inject constructor(
                 val result = repo.getQuizById(id)
                 _quiz.value = result
             } catch (e: Exception) {
-                showToast(context, "Failed to load quiz")
+                showToast(context,e.message ?: "Failed to get quiz")
                 _quiz.value = null
+            }
+        }
+    }
+
+    fun deleteQuiz(id: String) {
+        viewModelScope.launch {
+            errorHandler {
+                repo.deleteQuiz(id)
             }
         }
     }

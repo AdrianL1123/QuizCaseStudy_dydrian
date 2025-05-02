@@ -47,6 +47,14 @@ class QuizRepoFireStoreImpl(
         return snapshot.toObject(Quiz::class.java)?.copy(id = snapshot.id)
     }
 
+    override suspend fun updateQuiz(quiz: Quiz) {
+        getCollectionRef().document(quiz.id!!).set(quiz).await()
+    }
+
+    override suspend fun deleteQuiz(id: String) {
+        getCollectionRef().document(id).delete().await()
+    }
+
     // Store the score for a student in a particular quiz
     override suspend fun storeScore(quizId: String, score: String) {
         val user = authService.getLoggedInUser()
