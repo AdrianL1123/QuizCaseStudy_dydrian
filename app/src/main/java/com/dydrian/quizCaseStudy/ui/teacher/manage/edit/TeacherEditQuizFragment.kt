@@ -1,21 +1,18 @@
 package com.dydrian.quizCaseStudy.ui.teacher.manage.edit
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.dydrian.quizCaseStudy.R
 import com.dydrian.quizCaseStudy.core.showToast
-import com.dydrian.quizCaseStudy.data.model.Quiz
 import com.dydrian.quizCaseStudy.databinding.FragmentTeacherManageQuizBinding
 import com.dydrian.quizCaseStudy.ui.teacher.manage.TeacherManageQuizFragment
-import com.dydrian.quizCaseStudy.ui.teacher.manage.add.TeacherAddQuizViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class TeacherEditQuizFragment : TeacherManageQuizFragment() {
@@ -39,17 +36,13 @@ class TeacherEditQuizFragment : TeacherManageQuizFragment() {
         binding.btnManageCreateEdit.setOnClickListener {
             val title = binding.etQuizTitle.text.toString()
             val timePerQuestion = binding.etTimePerQuestion.text.toString().toIntOrNull()
-
-            if (title.isNotEmpty() && timePerQuestion != null) {
-                viewModel.updateQuiz(title, timePerQuestion)
-
-                findNavController().popBackStack()
-                showToast(requireContext(), "Quiz updated successfully")
-            } else if (title.isEmpty()){
+            if (title.isEmpty()) {
                 showToast(requireContext(), "Title cannot be empty")
-            } else {
-                showToast(requireContext(), "Time per question must be a number")
+                return@setOnClickListener
             }
+            viewModel.updateQuiz(title, timePerQuestion)
+            findNavController().popBackStack()
+            showToast(requireContext(), "Quiz updated successfully")
         }
         observeQuiz()
     }
@@ -57,10 +50,8 @@ class TeacherEditQuizFragment : TeacherManageQuizFragment() {
     private fun observeQuiz() {
         lifecycleScope.launch {
             viewModel.quiz.collect { quiz ->
-              if (quiz != null) {
-                    binding.etQuizTitle.setText(quiz.title)
-                    binding.etTimePerQuestion.setText(quiz.timePerQuestion.toString())
-                }
+                binding.etQuizTitle.setText(quiz?.title)
+                binding.etTimePerQuestion.setText(quiz?.timePerQuestion?.toString() ?: "")
             }
         }
 

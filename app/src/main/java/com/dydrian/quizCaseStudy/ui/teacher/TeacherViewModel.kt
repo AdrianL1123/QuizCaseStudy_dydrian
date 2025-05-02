@@ -1,11 +1,9 @@
 package com.dydrian.quizCaseStudy.ui.teacher
 
 import androidx.lifecycle.viewModelScope
-import com.dydrian.quizCaseStudy.core.service.AuthService
 import com.dydrian.quizCaseStudy.data.model.Quiz
 import com.dydrian.quizCaseStudy.data.repo.QuizRepo
 import com.dydrian.quizCaseStudy.ui.base.BaseViewModel
-import com.dydrian.quizCaseStudy.ui.teacher.adapter.QuizAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,5 +35,4 @@ class TeacherViewModel @Inject constructor(
             }
         }
     }
-
 }

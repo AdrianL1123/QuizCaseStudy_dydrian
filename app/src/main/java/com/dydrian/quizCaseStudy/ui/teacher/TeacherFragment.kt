@@ -37,7 +37,6 @@ class TeacherFragment : BaseFragment() {
             viewModel.quizzes.collect {
                 binding.emptyStateContainer.visibility =
                     if (it.isEmpty()) View.VISIBLE else View.GONE
-
                 adapter.setQuizzes(it)
             }
         }
