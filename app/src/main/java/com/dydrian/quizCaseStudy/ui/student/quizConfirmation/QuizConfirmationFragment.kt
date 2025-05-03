@@ -33,10 +33,13 @@ class QuizConfirmationFragment : BaseFragment() {
         lifecycleScope.launch {
             viewModel.joinedQuiz.collect {
                 binding.tvQuizTitle.text = it?.title
-                binding.tvTimePerQuestion.text =
-                    "Time Per Question: ${it?.timePerQuestion}s"
-                binding.tvNumberOfQuestions.text =
-                    "Number Of Questions: ${it?.questions?.size}"
+                if (it?.timePerQuestion != null) {
+                    binding.tvTimePerQuestion.text = "Time Per Question: ${it?.timePerQuestion}s"
+                } else {
+                    binding.tvTimePerQuestion.visibility = View.GONE
+                }
+
+                binding.tvNumberOfQuestions.text = "Number Of Questions: ${it?.questions?.size}"
             }
         }
         binding.btnStartQuiz.setOnClickListener {
