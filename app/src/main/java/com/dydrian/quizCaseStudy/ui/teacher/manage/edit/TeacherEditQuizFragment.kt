@@ -39,8 +39,8 @@ class TeacherEditQuizFragment : TeacherManageQuizFragment() {
                 showToast(requireContext(), "Title cannot be empty")
                 return@setOnClickListener
             }
-            if (timePerQuestion == null || timePerQuestion < 5) {
-                showToast(requireContext(), "Time limit must be 5 seconds or more")
+            if (timePerQuestion == null || timePerQuestion < 10) {
+                showToast(requireContext(), "Time limit must be 10 seconds or more")
                 return@setOnClickListener
             }
             viewModel.updateQuiz(title, timePerQuestion)

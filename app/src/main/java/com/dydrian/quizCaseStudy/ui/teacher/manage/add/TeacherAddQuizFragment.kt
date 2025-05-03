@@ -78,8 +78,8 @@ class TeacherAddQuizFragment : TeacherManageQuizFragment() {
                 return@setOnClickListener
             }
 
-            if (time == null || time < 5) {
-                showToast(requireContext(), "Time limit must be at least 5 seconds.")
+            if (time == null || time < 10) {
+                showToast(requireContext(), "Time limit must be at least 10 seconds.")
                 return@setOnClickListener
             }
 
