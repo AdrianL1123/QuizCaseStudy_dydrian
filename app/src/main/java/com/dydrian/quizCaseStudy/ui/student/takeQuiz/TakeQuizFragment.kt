@@ -59,7 +59,11 @@ class TakeQuizFragment : BaseFragment() {
         // timer
         lifecycleScope.launch {
             viewModel.timeLeft.collect { timeLeft ->
-                binding.tvTimer.text = "00:$timeLeft"
+                if (timeLeft != null) {
+                    binding.tvTimer.text = "00:$timeLeft"
+                } else {
+                    binding.tvTimer.visibility = View.GONE
+                }
             }
         }
 
