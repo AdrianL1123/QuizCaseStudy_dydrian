@@ -27,14 +27,17 @@ class TakeQuizViewModel @Inject constructor(
     private val _quiz = MutableStateFlow<Quiz?>(null)
     val quiz = _quiz.asStateFlow()
 
-    private val _score = MutableStateFlow(0)
-    val score = _score.asStateFlow()
+    private val _currentScore = MutableStateFlow(0)
+    val currentScore = _currentScore.asStateFlow()
 
     val currentQuestionIndex = MutableStateFlow(0)
     val currentQuestion = MutableStateFlow<Question?>(null)
 
     private val _timeLeft = MutableStateFlow(0)
     val timeLeft = _timeLeft.asStateFlow()
+
+    private val _navigateToResult = MutableStateFlow("")
+    val navigateToResult = _navigateToResult.asStateFlow()
 
     private var timerJob: Job? = null
 
@@ -89,18 +92,25 @@ class TakeQuizViewModel @Inject constructor(
             timer()
         } else {
             timerJob?.cancel() // stop timer
-            // Todo get to results page
+            viewModelScope.launch {
+                // pass the score to fragment so that I can navigate to result page
+                _navigateToResult.emit("${currentScore.value}/${quiz.questions.size}")
+            }
         }
     }
 
 
     fun checkAnswer(context: Context, selectedAnswer: String) {
         if (selectedAnswer.trim() == currentQuestion.value?.correctAnswer?.trim()) {
-            _score.value += 1
+            _currentScore.value += 1
             showToast(
                 context,
-                "Answer Is Correct ! ${score.value}/${quiz.value?.questions?.size}"
+                "Answer Is Correct ! ${currentScore.value}/${quiz.value?.questions?.size}"
             )
         }
+    }
+
+    suspend fun storeScore() {
+        repo.storeScore(quizId, currentScore.value.toString())
     }
 }

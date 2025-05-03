@@ -12,3 +12,8 @@ data class Question(
     val options: List<String> = emptyList(),
     val correctAnswer: String = ""
 )
+
+data class Score(
+    val score: String = "",
+    val user_email: String = ""
+)
