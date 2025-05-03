@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.dydrian.quizCaseStudy.core.showToast
 import com.dydrian.quizCaseStudy.databinding.FragmentDisplayIdPageBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,6 +44,7 @@ class DisplayIdPageFragment : Fragment() {
 
             // Set the clip data to the system clipboard for copying
             copyText.setPrimaryClip(copiedText)
+            showToast(requireContext(), "Quiz Id copied")
         }
 
         binding.btnBackToHome.setOnClickListener {
