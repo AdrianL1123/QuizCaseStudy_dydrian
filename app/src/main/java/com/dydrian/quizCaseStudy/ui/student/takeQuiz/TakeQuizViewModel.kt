@@ -56,27 +56,31 @@ class TakeQuizViewModel @Inject constructor(
                 _quiz.update { items }
                 currentQuestionIndex.update { 0 }
                 currentQuestion.update { items.questions.firstOrNull() }
-                if (items.timePerQuestion != null) {
-                    timer()
-                }
+                timer()
             }
         }
     }
 
     fun timer() {
-        timerJob?.cancel() // cancel previous timer if any
+        timerJob?.cancel()
 
-        timerJob = viewModelScope.launch {
-            val timePerQuestion = quiz.value?.timePerQuestion
-            if (timePerQuestion != null) {
+        val timePerQuestion = quiz.value?.timePerQuestion
+
+        // Only run timer if timePerQuestion is NOT null AND greater than 0
+        if (timePerQuestion != null && timePerQuestion > 0) {
+            timerJob = viewModelScope.launch {
                 _timeLeft.value = timePerQuestion
+
+                while (_timeLeft.value > 0) {
+                    delay(1000)
+                    _timeLeft.update { it - 1 }
+                }
+
+                onTimeUp()
             }
-            while (_timeLeft.value > 0) {
-                delay(1000) // 1 sec
-                _timeLeft.update { it - 1 }
-            }
-            // When time is up
-            onTimeUp()
+        } else {
+            // No timer should run
+            _timeLeft.value = 0
         }
     }
 

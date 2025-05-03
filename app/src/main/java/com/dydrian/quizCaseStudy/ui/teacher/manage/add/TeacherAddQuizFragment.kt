@@ -78,6 +78,11 @@ class TeacherAddQuizFragment : TeacherManageQuizFragment() {
                 return@setOnClickListener
             }
 
+            if (time == null || time < 5) {
+                showToast(requireContext(), "Time limit must be at least 5 seconds.")
+                return@setOnClickListener
+            }
+
             lifecycleScope.launch {
                 val quiz = Quiz(
                     id = generateUniqueQuizId(),

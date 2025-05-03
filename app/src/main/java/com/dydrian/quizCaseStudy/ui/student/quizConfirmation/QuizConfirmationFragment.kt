@@ -34,13 +34,12 @@ class QuizConfirmationFragment : BaseFragment() {
             viewModel.joinedQuiz.collect {
                 binding.tvQuizTitle.text = it?.title
                 if (it?.timePerQuestion != null) {
-                    binding.tvTimePerQuestion.text =
-                        "Time Per Question: ${it?.timePerQuestion}s"
+                    binding.tvTimePerQuestion.text = "Time Per Question: ${it?.timePerQuestion}s"
                 } else {
                     binding.tvTimePerQuestion.visibility = View.GONE
                 }
-                binding.tvNumberOfQuestions.text =
-                    "Number Of Questions: ${it?.questions?.size}"
+
+                binding.tvNumberOfQuestions.text = "Number Of Questions: ${it?.questions?.size}"
             }
         }
         binding.btnStartQuiz.setOnClickListener {

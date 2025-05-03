@@ -12,7 +12,6 @@ import com.dydrian.quizCaseStudy.databinding.FragmentTeacherManageQuizBinding
 import com.dydrian.quizCaseStudy.ui.teacher.manage.TeacherManageQuizFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class TeacherEditQuizFragment : TeacherManageQuizFragment() {
@@ -38,6 +37,10 @@ class TeacherEditQuizFragment : TeacherManageQuizFragment() {
             val timePerQuestion = binding.etTimePerQuestion.text.toString().toIntOrNull()
             if (title.isEmpty()) {
                 showToast(requireContext(), "Title cannot be empty")
+                return@setOnClickListener
+            }
+            if (timePerQuestion == null || timePerQuestion < 5) {
+                showToast(requireContext(), "Time limit must be 5 seconds or more")
                 return@setOnClickListener
             }
             viewModel.updateQuiz(title, timePerQuestion)
