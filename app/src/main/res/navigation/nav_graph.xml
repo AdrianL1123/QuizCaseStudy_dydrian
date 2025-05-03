@@ -3,11 +3,170 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment">
+
+
+    <action
+        android:id="@+id/loginFragment_to_studentFragment"
+        app:destination="@id/studentFragment"
+        app:popUpTo="@id/loginFragment"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/loginFragment_to_teacherFragment"
+        app:destination="@id/teacherFragment"
+        app:popUpTo="@id/loginFragment"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/ToLoginFragment"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/loginFragment"
+        app:popUpToInclusive="true" />
+
+
+    <!-- Auth -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.auth.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_base_auth">
+        <action
+            android:id="@+id/LoginFragmentToSignUpFragment"
+            app:destination="@id/signupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.auth.signup.SignupFragment"
+        android:label="SignupFragment"
+        tools:layout="@layout/fragment_base_auth" />
+    <!-- Auth -->
+
+
+    <!-- Student Page -->
+    <fragment
+        android:id="@+id/studentFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.student.StudentFragment"
+        android:label="fragment_student"
+        tools:layout="@layout/fragment_student">
+        <action
+            android:id="@+id/studentFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/studentToQuiz"
+            app:destination="@id/quizConfirmationFragment" />
+    </fragment>
+
+
+    <!--  Teacher Page  -->
+    <fragment
+        android:id="@+id/teacherFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.teacher.TeacherFragment"
+        android:label="fragment_teacher"
+        tools:layout="@layout/fragment_teacher">
+        <action
+            android:id="@+id/teacherFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_teacherFragment_to_teacherAddQuizFragment"
+            app:destination="@id/teacherAddQuizFragment" />
+        <action
+            android:id="@+id/action_teacherFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+
+    </fragment>
+
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.dydrian.quizCaseStudy.ui.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/profileFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/teacherAddQuizFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.teacher.manage.add.TeacherAddQuizFragment"
+        android:label="TeacherAddQuizFragment"
+        tools:layout="@layout/fragment_teacher_manage_quiz" >
+        <action
+            android:id="@+id/action_teacherAddQuizFragment_to_displayIdPageFragment"
+            app:destination="@id/displayIdPageFragment"
+            app:popUpTo="@id/teacherAddQuizFragment"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.teacher.details.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_detailsFragment_to_teacherEditQuizFragment"
+            app:destination="@id/teacherEditQuizFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teacherEditQuizFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.teacher.manage.edit.TeacherEditQuizFragment"
+        android:label="TeacherEditQuizFragment">
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/quizConfirmationFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.student.quizConfirmation.QuizConfirmationFragment"
+        android:label="fragment_quiz_confirmation"
+        tools:layout="@layout/fragment_quiz_confirmation">
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_quizConfirmationFragment_to_takeQuizFragment"
+            app:destination="@id/takeQuizFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/takeQuizFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.student.takeQuiz.TakeQuizFragment"
+        android:label="TakeQuizFragment"
+        tools:layout="@layout/fragment_take_quiz">
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/takeQuizFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.student.result.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result">
+        <argument
+            android:name="score"
+            app:argType="string" />
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_resultFragment_to_studentFragment"
+            app:destination="@id/studentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayIdPageFragment"
+        android:name="com.dydrian.quizCaseStudy.ui.teacher.displayId.DisplayIdPageFragment"
+        android:label="fragment_display_id_page"
+        tools:layout="@layout/fragment_display_id_page" >
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_displayIdPageFragment_to_teacherFragment"
+            app:destination="@id/teacherFragment" />
+    </fragment>
 </navigation>
